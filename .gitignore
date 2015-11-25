@@ -1,0 +1,8 @@
+
+/*
+!.gitignore
+!/Gobang/
+
+/Gobang/Debug/
+/Gobang/Gobang.vcxproj
+/Gobang/Gobang.vcxproj.filters
