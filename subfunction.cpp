@@ -59,49 +59,48 @@ void showBoard(int Board[Size][Size]){
 	cout << "   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14\n";
 };
 
-/*
-int maxMinAlphaBetaCut(int** chessBoard, int whiteOrBlack, int depth, Point opPos, int alpha, int beta)
-{
-	int bestValue, curValue;  // bestValue是最好的分数， curValue是试探下子后，该次下子的分数
+// This is the Min_Max algorithm for pruning
+int maxMinAlphaBetaCut(int** chessBoard, int whiteOrBlack, int depth, Point opPos, int alpha, int beta) {
+	int bestValue, curValue;  // bestValue is the overall best score, curValue is the score after a new trial
 
-	if (isBE5AtPoint(chessBoard, whiteOrBlack == 2 ? 1 : 2, opPos))   // 如果在这里可以分出胜负
+	if (isBE5AtPoint(chessBoard, whiteOrBlack == 2 ? 1 : 2, opPos))   // We can already determine who wins
 	{   
-		if (whiteOrBlack == 1){ return FIVE_ALIKE; }  // 电脑赢。这里为什么不是2呢？因为这里whiteOrBlack与opPos是相反关系
-		else { return -FIVE_ALIKE; }  // 玩家赢
+		if (whiteOrBlack == 1){ return FIVE_ALIKE; }  // The computer wins
+		else { return -FIVE_ALIKE; }  // The humman player wins
 	}
-	else if (depth == 0){ bestValue = getValue(chessBoard); }   //深度为0，估值返回
-	     else{// 下面开始是利用了剪枝思想的极大极小过程
-		     if (whiteOrBlack == 2)  // 此节点为电脑白子，取极大值
-		     {// 下面开始对各个可以下的子进行评分
+	else if (depth == 0){ bestValue = getValue(chessBoard); }   // The depth is 0, return evaluation value
+	     else{  // The Min_Max algorithm for pruning
+		     if (whiteOrBlack == 2)  // This position is the white point of computer, get the maximal value
+		     {  // Evaluate each reasonable choice
 			     for (int i = 0; i <= 14; i++)
 			     {
 				     for (int j = 0; j <= 14; j++)
 				     {
-					     if (chessBoard[i][j] == 0)  // 如果可以下子
+					     if (chessBoard[i][j] == 0)  // The position is empty
 					     {
-							 if (alpha >= beta) { return alpha; } // alpha剪枝
-						     chessBoard[i][j] = whiteOrBlack; // 试探下子
+							 if (alpha >= beta) { return alpha; }  // alpha pruning
+						     chessBoard[i][j] = whiteOrBlack;  // make a trial
 						     curValue = maxMinAlphaBetaCut(chessBoard, 1, depth - 1, cocos2d::Point(i, j), alpha, beta);
-						     chessBoard[i][j] = 0;  // 撤消下子
-						     if (curValue > alpha){alpha = curValue;} //子节点的最大值记录到alpha中
+						     chessBoard[i][j] = 0;  // remove previous trial
+						     if (curValue > alpha){alpha = curValue;} // update the value of alpha
 					      }
 				      }
 			      }
 			      bestValue = alpha;
-		      }// end if (whiteOrBlack == 2)
-		      else if (whiteOrBlack == 1)  // 此节点为玩家黑子，取极小值
+		      }  // end if (whiteOrBlack == 2)
+		      else if (whiteOrBlack == 1)  // This position is the black point of human player, get the minimal value
 		      {
 			      for (int i = 0; i <= 14; i++)
 			      {
 				      for (int j = 0; j <= 14; j++)
 				      {
-					      if (chessBoard[i][j] == 0)  // 如果可以下子
+					      if (chessBoard[i][j] == 0)  // The position is empty
 					      {
-							  if (alpha >= beta) { return beta; } // beta剪枝
-						      chessBoard[i][j] = whiteOrBlack; // 试探下子
+							  if (alpha >= beta) { return beta; }  // beta pruning
+						      chessBoard[i][j] = whiteOrBlack;  // make a trial
 						      curValue = maxMinWithAlphaBetaCut(chessBoard, 2, depth - 1, cocos2d::Point(i, j), alpha, beta);
-						      chessBoard[i][j] = 0;  // 撤消下子
-							  if (curValue < beta){beta = curValue;} //子节点的最小值记录到beta中	      
+						      chessBoard[i][j] = 0;  // remove previous trial
+							  if (curValue < beta){beta = curValue;}  //update the value of beta
 					       }
 				      }
 			       } // end else if (whiteOrBlack == 1) 
@@ -109,4 +108,4 @@ int maxMinAlphaBetaCut(int** chessBoard, int whiteOrBlack, int depth, Point opPo
 		      }
 	      }  // end else : (depth > 0)
 	return bestValue;
-}*/
+}
