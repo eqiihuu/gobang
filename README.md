@@ -7,7 +7,7 @@ ___
 ___
 
 ## Introduction
- * This is a small game called Gobang. You can play this game with teh computer (a 'clever' agent with very basic AI).
+ * This is a small game called Gobang. You can play this game with the computer (a 'clever' agent with very basic AI).
  * The rule of the game is as follow: you and the computer will put a piece of chess in turns on any reasonable(empty)
    position. Whoever get a line of five pieces of chess first will win the game.
    
